@@ -13,7 +13,7 @@ export class RESTDataSourcePlus extends RESTDataSource {
   // parse array data with total count in header
   protected async didReceiveResponse<TResult = any>(
     response: Response,
-    _request: Request,
+    request: Request,
   ): Promise<TResult> {
     if (response.ok) {
       const contentType = response.headers.get('Content-Type')
@@ -29,13 +29,11 @@ export class RESTDataSourcePlus extends RESTDataSource {
             totalCount,
             data
           }) as any) as Promise<TResult>
-        } else {
-          return (data as any) as Promise<TResult>
         }
+        return (data as any) as Promise<TResult>
       }
       return (this.parseBody(response) as any) as Promise<TResult>
-    } else {
-      throw await this.errorFromResponse(response)
     }
+    throw await this.errorFromResponse(response)
   }
 }
