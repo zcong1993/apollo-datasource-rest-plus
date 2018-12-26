@@ -1,8 +1,5 @@
 import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest'
-import {
-  Request,
-  Response,
-} from 'apollo-server-env'
+import { Request, Response } from 'apollo-server-env'
 
 export class RESTDataSourcePlus extends RESTDataSource {
   // set auth token before send request
@@ -13,7 +10,7 @@ export class RESTDataSourcePlus extends RESTDataSource {
   // parse array data with total count in header
   protected async didReceiveResponse<TResult = any>(
     response: Response,
-    request: Request,
+    request: Request
   ): Promise<TResult> {
     if (response.ok) {
       const contentType = response.headers.get('Content-Type')
@@ -25,10 +22,10 @@ export class RESTDataSourcePlus extends RESTDataSource {
         const totalCount = response.headers.get('x-total-count')
         const data = await response.json()
         if (totalCount && Array.isArray(data)) {
-          return (({
+          return ({
             totalCount,
             data
-          }) as any) as Promise<TResult>
+          } as any) as Promise<TResult>
         }
         return (data as any) as Promise<TResult>
       }
