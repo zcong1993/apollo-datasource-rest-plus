@@ -12,6 +12,7 @@
     "test": "npm run lint && npm run jest",
     "test:cov": "npm run lint && npm run jest:cov",
     "lint": "tslint -p .",
+    "format": "prettier --write **/*.{ts,json,md}",
     "jest": "jest --detectOpenHandles --forceExit",
     "jest:cov": "jest --coverage --detectOpenHandles --forceExit",
     "publish": "npm run build"
@@ -23,9 +24,11 @@
     "@types/jest": "^23.1.5",
     "@types/node": "^10.5.2",
     "jest": "^23.4.0",
+    "prettier": "^1.15.3",
     "ts-jest": "^23.0.0",
     "tslint": "^5.8.0",
     "tslint-config-airbnb": "^5.4.2",
+    "tslint-config-prettier": "^1.17.0",
     "typescript": "^2.6.2"
   },
   "jest": {
