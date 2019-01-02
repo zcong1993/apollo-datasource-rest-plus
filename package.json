@@ -1,6 +1,6 @@
 {
   "name": "@zcong/apollo-datasource-rest-plus",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "my cool project",
   "main": "dist/index.js",
   "files": [
