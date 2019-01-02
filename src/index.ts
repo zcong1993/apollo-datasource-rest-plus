@@ -34,3 +34,24 @@ export class RESTDataSourcePlus extends RESTDataSource {
     throw await this.errorFromResponse(response)
   }
 }
+
+export class ReadonlyDataSource extends RESTDataSourcePlus {
+  private resource: string
+
+  constructor(baseUrl: string, resource: string) {
+    super()
+    this.baseURL = baseUrl
+    this.resource = resource
+  }
+
+  async list(limit: number, offset: number) {
+    return this.get(this.resource, {
+      limit,
+      offset
+    })
+  }
+
+  async retrieve(id: string) {
+    return this.get(`${this.resource}/${id}`)
+  }
+}
