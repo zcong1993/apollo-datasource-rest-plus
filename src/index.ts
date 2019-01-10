@@ -2,6 +2,11 @@ import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest'
 import { Request, Response } from 'apollo-server-env'
 
 export class RESTDataSourcePlus extends RESTDataSource {
+  private field: string
+  constructor(field: string = 'data') {
+    super()
+    this.field = field
+  }
   // set auth token before send request
   protected willSendRequest(request: RequestOptions): void {
     request.headers.set('Authorization', this.context.token)
@@ -24,7 +29,7 @@ export class RESTDataSourcePlus extends RESTDataSource {
         if (totalCount && Array.isArray(data)) {
           return ({
             totalCount,
-            data
+            [this.field]: data
           } as any) as Promise<TResult>
         }
         return (data as any) as Promise<TResult>
@@ -38,8 +43,8 @@ export class RESTDataSourcePlus extends RESTDataSource {
 export class ReadonlyDataSource extends RESTDataSourcePlus {
   private resource: string
 
-  constructor(baseUrl: string, resource: string) {
-    super()
+  constructor(baseUrl: string, resource: string, field: string = 'data') {
+    super(field)
     this.baseURL = baseUrl
     this.resource = resource
   }
