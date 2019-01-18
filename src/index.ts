@@ -49,14 +49,14 @@ export class ReadonlyDataSource extends RESTDataSourcePlus {
     this.resource = resource
   }
 
-  async list(limit: number, offset: number) {
-    return this.get(this.resource, {
+  async list<TResult = any>(limit: number, offset: number): Promise<TResult> {
+    return this.get<TResult>(this.resource, {
       limit,
       offset
     })
   }
 
-  async retrieve(id: string) {
-    return this.get(`${this.resource}/${id}`)
+  async retrieve<TResult = any>(id: string): Promise<TResult> {
+    return this.get<TResult>(`${this.resource}/${id}`)
   }
 }
